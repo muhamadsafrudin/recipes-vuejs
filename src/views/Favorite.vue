@@ -36,9 +36,10 @@ import Footer from '../components/Footer.vue';
 
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                   <router-link :to="'/detail/'+recipe.key">
-                      <button  type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
+                    <router-link :to="'/detail/'+recipe.key">
+                      <button  type="button" class="btn btn-sm btn-outline-success">Detail</button>
                     </router-link>
+                    <button @click="removeFav(recipe.key)"  type="button" class="btn btn-sm btn-outline-danger mx-2">Delete</button>
                   </div>
                   <small class="text-muted">{{ recipe.dificulty }}</small>
                 </div>
@@ -59,6 +60,8 @@ import Footer from '../components/Footer.vue';
 
 <script>
 
+import { setCookie } from "../assets/Script.js";
+
 export default {
 
     data () {
@@ -69,7 +72,7 @@ export default {
     },
     mounted () {
 
-      this,this.getFavorites();
+      this.getFavorites();
     },
     methods: {
 
@@ -97,7 +100,12 @@ export default {
 
           this.recipes = recipes;
 
-        }
+        },
+
+        removeFav(key)  {
+          setCookie("recipe_"+key, "", "");
+          this.getFavorites();
+        } 
       
     }
 

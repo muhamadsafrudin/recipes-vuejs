@@ -31,7 +31,7 @@ import Footer from '../components/Footer.vue';
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <router-link :to="'/detail/' + recipe.key">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
+                        <button type="button" class="btn btn-sm btn-outline-success">Detail</button>
                       </router-link>
                     </div>
                     <small class="text-muted">{{ recipe.dificulty }}</small>

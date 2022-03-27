@@ -55,7 +55,7 @@ import Footer from "../components/Footer.vue";
                     </div>
                   </div>
                   <div class="d-flex justify-content-start mt-3">
-                      <button v-if="favorite == false" @click="eventFavorite(recipe.title, this.$route.params.key, recipe.thumb)" class="btn btn-primary"><i class="fa fa-heart"></i> Add to  Favorite</button>
+                      <button v-if="favorite == false" @click="eventFavorite(recipe.title, this.$route.params.key, recipe.thumb)" class="btn btn-success"><i class="fa fa-heart"></i> Add to  Favorite</button>
                       <button v-if="favorite == true" @click="eventFavorite(recipe.title, this.$route.params.key, recipe.thumb)" class="btn btn-danger"><i class="fa fa-heart"></i> Remove from  Favorite</button>
                  </div> 
                 </div>
