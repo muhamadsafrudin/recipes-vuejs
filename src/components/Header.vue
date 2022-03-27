@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light shadow">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-success shadow">
     <div class="container">
       <router-link :to="'/'" class="navbar-brand" href="#">
         <img

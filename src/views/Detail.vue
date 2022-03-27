@@ -127,6 +127,7 @@ export default {
   methods: {
 
     Reload() {
+    this.dataNull();
     this.getRecipe();
     this.cekFavorite();
   
@@ -171,11 +172,7 @@ export default {
     },
 
     newDetail(data) {
-        this.dataNull();
         this.$router.push('/detail/'+data);
-        this.getRecipe(data);
-        this.otherRecipes();
-        this.cekFavorite(data); 
     },
 
     cekFavorite(data = this.$route.params.key) {
@@ -200,13 +197,10 @@ export default {
       }
     },
 
-    refresh(data) {
-      this.dataNull();
-      this.getRecipe();
-      this.cekFavorite();
-    },
-
-
   },
+
+  watch: {
+    '$route.params': 'Reload',
+  }
 };
 </script>
