@@ -8,7 +8,7 @@ import Footer from "../components/Footer.vue";
 <template>
   <Header />
 
-  <SectionCus :title="'Detail recipe'"  @Refresh="refresh"/>
+  <SectionCus :title="'Detail recipe'"/>
 
   <main>
     <div class="album py-5 bg-light">
