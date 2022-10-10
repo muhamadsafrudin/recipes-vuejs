@@ -8,7 +8,7 @@ import Footer from "../components/Footer.vue";
 <template>
   <Header />
 
-  <SectionCus :title="'Detail recipe'"/>
+  <SectionCus :title="'Detail Resep'"/>
 
   <main>
     <div class="album py-5 bg-light">
@@ -33,12 +33,13 @@ import Footer from "../components/Footer.vue";
                         recipe.author.user + ", " + recipe.author.datePublished
                       }}
                     </small>
-                    <h5>Recipe:</h5>
+                    <h5>Resep:</h5>
                   </div>
                   <div class="mt-5">
                     <h3 class="display-6">{{ recipe.title }}</h3>
+                    <!-- <p>{{ recipe.desc }}</p> -->
                   </div>
-                  <div class="mt-4 mb-2">
+                  <!-- <div class="mt-4 mb-2">
                     <div class="row">
                       <h6 class="col-4">
                         <i class="far fa-clock"></i>
@@ -53,10 +54,10 @@ import Footer from "../components/Footer.vue";
                         {{ recipe.dificulty }}
                       </h6>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-start mt-3">
-                      <button v-if="favorite == false" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-success"><i class="fa fa-heart"></i> Add to  Favorite</button>
-                      <button v-if="favorite == true" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-danger"><i class="fa fa-heart"></i> Remove from  Favorite</button>
+                  </div> -->
+                  <div class="d-flex justify-content-start mt-5">
+                      <button v-if="favorite == false" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-success"><i class="fa fa-bookmark"></i> Tambah ke Favorit</button>
+                      <button v-if="favorite == true" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-danger"><i class="fa fa-bookmark"></i> Hapus dari Favorit</button>
                  </div> 
                 </div>
               </div>
@@ -64,25 +65,25 @@ import Footer from "../components/Footer.vue";
 
             <div class="mb-2 col-xl-7">
               <div class="mb-2 border border-secondary border-3 rounded-2 p-2">
-                <h5>Ingredient :</h5>
+                <h5>Bahan bahan :</h5>
                 <ul>
-                  <li v-for="ing in recipe.ingredient">{{ ing }}</li>
+                  <li v-for="(ing, index) in recipe.ingredient" :key="index">{{ ing }}</li>
                 </ul>
               </div>
               <div class="border border-secondary border-3 rounded-2 p-2">
-                <h5>Step :</h5>
+                <h5>Langkah langkah :</h5>
                 <ul>
-                  <li v-for="step in recipe.step">{{ step }}</li>
+                  <li v-for="(step,index) in recipe.step" :key="index">{{ step.substring(1) }}</li>
                 </ul>
               </div>
             </div>
 
             <div class="mb-2 col-xl-5">
               <div class="pt-2">
-                <h5>Other Recipes & Tips For You :</h5>
+                <h5>Resep & Tips Lainnya Untuk Anda:</h5>
                 <div v-if="recipes != null" class="row">
-                  <div v-for="data in recipes" class=" col-6 mb-3">
-                    <div @click="newDetail(data.key)"  class="col">
+                  <div v-for="(data, index) in recipes" :key="index" class=" col-6 mb-3">
+                    <div @click="newDetail(data.key)"  class="col"> 
                       <div class="card shadow-sm">
                         <img style="cursor: pointer;" class="bd-placeholder-img card-img-top" v-bind:src="data.thumb" />
                         <div class="card-body">
@@ -148,6 +149,7 @@ export default {
             },
           })
       .then((response) => {
+        console.log(response)
         this.loading = false;
         this.recipe = response.data.results;  
         this.otherRecipes();

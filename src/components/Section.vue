@@ -9,7 +9,7 @@
             Memasaklah dari hati, itu kunci utama masakan yang enak.
           </p>
           <div class="input-group mb-3">
-            <input @keyup.enter="searchRecipe()" id="search-recipe" v-model="search" type="text" autocomplete="off" class="form-control" placeholder="search recipe..." aria-describedby="button-addon2">
+            <input @keyup.enter="searchRecipe()" id="search-recipe" v-model="search" type="text" autocomplete="off" class="form-control" placeholder="cari resep..." aria-describedby="button-addon2">
             <button @click="searchRecipe()" class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
           </div>
         </div>

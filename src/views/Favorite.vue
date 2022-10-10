@@ -25,7 +25,7 @@ import Footer from '../components/Footer.vue';
       <div v-if="recipes != null" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
       
-        <div v-for="recipe in recipes">
+        <div v-for="recipe in recipes" :key="recipe.key">
 
           <div class="col">
             <div class="card shadow-sm">
@@ -39,9 +39,9 @@ import Footer from '../components/Footer.vue';
                     <router-link :to="'/detail/'+recipe.key">
                       <button  type="button" class="btn btn-sm btn-outline-success">Detail</button>
                     </router-link>
-                    <button @click="removeFav(recipe.key)"  type="button" class="btn btn-sm btn-outline-danger mx-2">Delete</button>
+                    <button @click="removeFav(recipe.key)"  type="button" class="btn btn-sm btn-outline-danger mx-2">Hapus</button>
                   </div>
-                  <small class="text-muted">{{ recipe.dificulty }}</small>
+                  <!-- <small class="text-muted">{{ recipe.dificulty }}</small> -->
                 </div>
               </div>
             </div>

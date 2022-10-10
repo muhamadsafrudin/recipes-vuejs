@@ -40,7 +40,7 @@
               <router-link 
                 active-class="active"
                 :to="'/favorite'" class="nav-link" href="#">
-                <i class=""></i> Favorite
+                <i class=""></i> Favorit
               </router-link>
             </li>
             <li class="nav-item  dropdown">
@@ -51,13 +51,13 @@
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                >Categorys</a
+                >Kategori</a
               >
               <ul
                 class="dropdown-menu"
                 aria-labelledby="navbarScrollingDropdown"
               >
-                <li v-for="category in categorys">
+                <li v-for="category in categorys" :key="category.key">
                   <router-link
                     @click="selectCat(category.key)"
                     :to="'/home/' + category.key"
@@ -92,6 +92,7 @@ export default {
       .get(APimakanan + "/categorys/index.php")
       .then((response) => {
         this.categorys = response.data.results;
+        console.log(response.data.results)
       })
       .catch((error) => {
         console.log(error);
