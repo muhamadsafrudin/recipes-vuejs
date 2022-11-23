@@ -8,7 +8,7 @@ import Footer from "../components/Footer.vue";
 <template>
   <Header />
 
-  <SectionCus :title="'Detail Resep'"/>
+  <SectionCus :title="'Detail Resep'" />
 
   <main>
     <div class="album py-5 bg-light">
@@ -20,7 +20,11 @@ import Footer from "../components/Footer.vue";
               <img
                 style="border-radius: 5px; width: 100%"
                 class="bd-placeholder-img card-img-top"
-                :src="recipe.thumb == null ? '/assets/icon/noimage.jpeg' : recipe.thumb"
+                :src="
+                  recipe.thumb == null
+                    ? '/assets/icon/noimage.jpeg'
+                    : recipe.thumb
+                "
                 alt="Images.."
               />
             </div>
@@ -56,9 +60,33 @@ import Footer from "../components/Footer.vue";
                     </div>
                   </div> -->
                   <div class="d-flex justify-content-start mt-5">
-                      <button v-if="favorite == false" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-success"><i class="fa fa-bookmark"></i> Tambah ke Favorit</button>
-                      <button v-if="favorite == true" @click="eventFavorite(recipe.title, $route.params.key, recipe.thumb)" class="btn btn-danger"><i class="fa fa-bookmark"></i> Hapus dari Favorit</button>
-                 </div> 
+                    <button
+                      v-if="favorite == false"
+                      @click="
+                        eventFavorite(
+                          recipe.title,
+                          $route.params.key,
+                          recipe.thumb
+                        )
+                      "
+                      class="btn btn-success"
+                    >
+                      <i class="fa fa-bookmark"></i> Tambah ke Favorit
+                    </button>
+                    <button
+                      v-if="favorite == true"
+                      @click="
+                        eventFavorite(
+                          recipe.title,
+                          $route.params.key,
+                          recipe.thumb
+                        )
+                      "
+                      class="btn btn-danger"
+                    >
+                      <i class="fa fa-bookmark"></i> Hapus dari Favorit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,13 +95,17 @@ import Footer from "../components/Footer.vue";
               <div class="mb-2 border border-secondary border-3 rounded-2 p-2">
                 <h5>Bahan bahan :</h5>
                 <ul>
-                  <li v-for="(ing, index) in recipe.ingredient" :key="index">{{ ing }}</li>
+                  <li v-for="(ing, index) in recipe.ingredient" :key="index">
+                    {{ ing }}
+                  </li>
                 </ul>
               </div>
               <div class="border border-secondary border-3 rounded-2 p-2">
                 <h5>Langkah langkah :</h5>
                 <ul>
-                  <li v-for="(step,index) in recipe.step" :key="index">{{ step.substring(1) }}</li>
+                  <li v-for="(step, index) in recipe.step" :key="index">
+                    {{ step.substring(1) }}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -82,13 +114,22 @@ import Footer from "../components/Footer.vue";
               <div class="pt-2">
                 <h5>Resep & Tips Lainnya Untuk Anda:</h5>
                 <div v-if="recipes != null" class="row">
-                  <div v-for="(data, index) in recipes" :key="index" class=" col-6 mb-3">
-                    <div @click="newDetail(data.key)"  class="col"> 
+                  <div
+                    v-for="(data, index) in recipes"
+                    :key="index"
+                    class="col-6 mb-3"
+                  >
+                    <div @click="newDetail(data.key)" class="col">
                       <div class="card shadow-sm">
-                        <img style="cursor: pointer;" class="bd-placeholder-img card-img-top" v-bind:src="data.thumb" />
+                        <img
+                          style="cursor: pointer"
+                          class="bd-placeholder-img card-img-top"
+                          v-bind:src="data.thumb"
+                        />
                         <div class="card-body">
-                          <h6 style="cursor: pointer;" class="">{{ data.title }}</h6>
-
+                          <h6 style="cursor: pointer" class="">
+                            {{ data.title }}
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -106,8 +147,10 @@ import Footer from "../components/Footer.vue";
 
 <script>
 import axios from "axios";
-import APImakanan from "../axios/Api.js";
+import APi from "../axios/Api.js";
 import { setCookie, getCookie } from "../assets/Script.js";
+let APimakanan = APi.APimakanan;
+axios.defaults.headers.common = APi.APiKey;
 
 export default {
   data() {
@@ -115,94 +158,78 @@ export default {
       recipe: null,
       recipes: null,
       loading: true,
-      favorite:false,
+      favorite: false,
     };
-
   },
   mounted() {
-
     this.getRecipe();
     this.cekFavorite();
-  
   },
   methods: {
-
     Reload() {
-    this.dataNull();
-    this.getRecipe();
-    this.cekFavorite();
-  
+      this.dataNull();
+      this.getRecipe();
+      this.cekFavorite();
     },
 
     dataNull() {
       this.recipe = null;
       this.recipes = null;
       this.loading = true;
-
     },
 
     getRecipe(data = this.$route.params.key) {
-          axios
-          .get(APImakanan + "/recipes/index.php", {
-            params: {
-              detail: data,
-            },
-          })
-      .then((response) => {
-        console.log(response)
-        this.loading = false;
-        this.recipe = response.data.results;  
-        this.otherRecipes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+      axios
+        .get(APimakanan + "/recipe/:" + data)
+        .then((response) => {
+          this.loading = false;
+          this.recipe = response.data.data;
+          this.otherRecipes();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     otherRecipes() {
       axios
-        .get(APImakanan + "/recipes/index.php", {
+        .get(APimakanan + "/recipes-length", {
           params: {
             limit: 4,
           },
         })
         .then((response) => {
-          this.recipes = response.data.results;
-        })
-      
+          this.recipes = response.data.data;
+        });
     },
 
     newDetail(data) {
-        this.$router.push('/detail/'+data);
+      this.$router.push("/detail/" + data);
     },
 
     cekFavorite(data = this.$route.params.key) {
-        const favorite = getCookie("recipe_"+ data)
-        if(favorite != ""){
-          this.favorite = true;
-        }else{
-          this.favorite = false;
-        }
-    },
-
-
-
-    eventFavorite(title, key, thumb) {
-      var data = title+"|~"+key+"|~"+thumb;
-      if(this.favorite == false){
+      const favorite = getCookie("recipe_" + data);
+      if (favorite != "") {
         this.favorite = true;
-        setCookie("recipe_"+key, data, 5);
-      }else{
+      } else {
         this.favorite = false;
-        setCookie("recipe_"+key, data, "");
       }
     },
 
+    eventFavorite(title, key, thumb) {
+      var data = title + "|~" + key + "|~" + thumb;
+      if (this.favorite == false) {
+        this.favorite = true;
+        setCookie("recipe_" + key, data, 5);
+      } else {
+        this.favorite = false;
+        setCookie("recipe_" + key, data, "");
+      }
+    },
   },
 
   watch: {
-    '$route.params': 'Reload',
-  }
+    "$route.params": "Reload",
+  },
 };
 </script>

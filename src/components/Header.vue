@@ -77,7 +77,10 @@
 
 <script>
 import axios from "axios";
-import APimakanan from "../axios/Api";
+import APi from "../axios/Api";
+
+let APimakanan = APi.APimakanan;
+axios.defaults.headers.common = APi.APiKey;
 
 export default {
   data() {
@@ -89,10 +92,9 @@ export default {
   mounted() {
 
     axios
-      .get(APimakanan + "/categorys/index.php")
+      .get(APimakanan + "/category")
       .then((response) => {
-        this.categorys = response.data.results;
-        console.log(response.data.results)
+        this.categorys = response.data.data;
       })
       .catch((error) => {
         console.log(error);

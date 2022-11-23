@@ -50,7 +50,10 @@ import InfiniteLoading from "v3-infinite-loading";
 <script>
 
 import axios from 'axios'
-import APImakanan from '../axios/Api.js'
+import APi from '../axios/Api.js'
+
+let APImakanan = APi.APimakanan
+axios.defaults.headers.common = APi.APiKey;
 
 export default {
 
@@ -75,39 +78,30 @@ export default {
       this.recipes = null;
       this.loading = true;
       if (category) {
-        axios.get(APImakanan + "/recipes/index.php", {
-          params: {
-            category: category
-          }
-        })
+        axios.get(APImakanan + "/recipes-category/:"+ category)
           .then(response => {
             this.loading = false; 
-            this.recipes = response.data.results;
+            this.recipes = response.data.data;
           })
           .catch(error => {
             console.log(error)
           })
       } else {
         if (key) {
-          axios.get(APImakanan + '/recipes/index.php', {
-            params: {
-              search: key
+          axios.get(APImakanan + '/search-recipes', {
+            params : {
+              "search" : key
             }
           })
             .then(response => {
               this.loading = false;
-              this.recipes = response.data.results;
+              this.recipes = response.data.data;
             })
             .catch(error => {
               console.log(error)
             })
         } else {
-          axios.get(APImakanan + "/recipes/index.php", {
-            params : {
-              page : this.page
-            }
-
-          })
+          axios.get(APImakanan + "/recipes/1")
             .then(response => {
               this.loading = false;
               this.recipes = response.data.results;
@@ -118,6 +112,55 @@ export default {
         }
       }
     },
+
+    //    getRecipes(category = this.$route.params.key, key = this.$route.query.key) {
+
+    //   this.recipes = null;
+    //   this.loading = true;
+    //   if (category) {
+    //     axios.get(APImakanan + "/recipes/index.php", {
+    //       params: {
+    //         category: category
+    //       }
+    //     })
+    //       .then(response => {
+    //         this.loading = false; 
+    //         this.recipes = response.data.results;
+    //       })
+    //       .catch(error => {
+    //         console.log(error)
+    //       })
+    //   } else {
+    //     if (key) {
+    //       axios.get(APImakanan + '/recipes/index.php', {
+    //         params: {
+    //           search: key
+    //         }
+    //       })
+    //         .then(response => {
+    //           this.loading = false;
+    //           this.recipes = response.data.results;
+    //         })
+    //         .catch(error => {
+    //           console.log(error)
+    //         })
+    //     } else {
+    //       axios.get(APImakanan + "/recipes/index.php", {
+    //         params : {
+    //           page : this.page
+    //         }
+
+    //       })
+    //         .then(response => {
+    //           this.loading = false;
+    //           this.recipes = response.data.results;
+    //         })
+    //         .catch(error => {
+    //           console.log(error)
+    //         })
+    //     }
+    //   }
+    // },
 
     getsearch(search = "") {
 
@@ -134,8 +177,7 @@ export default {
 
     loadData : function($state) {
       // console.log($state);
-      if(this.loading == false){
-        console.log("load data")
+      if(this.loading == false && this.$route.params.key == null && this.$route.query.key == null){
         this.loading = true;
         this.page = this.page + 1;
   
