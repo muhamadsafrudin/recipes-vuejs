@@ -136,7 +136,7 @@ export default {
         axios.get(APImakanan + "/recipes/" + this.page)
           .then(response => {
             this.loading = false;
-            let newRecipes = response.data.results;
+            let newRecipes = response.data.data;
             for(var i = 0; i < newRecipes.length; i++){
               this.recipes.push(newRecipes[i]);
             }
