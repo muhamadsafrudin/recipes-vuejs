@@ -104,7 +104,7 @@ export default {
           axios.get(APImakanan + "/recipes/1")
             .then(response => {
               this.loading = false;
-              this.recipes = response.data.results;
+              this.recipes = response.data.data;
             })
             .catch(error => {
               console.log(error)
