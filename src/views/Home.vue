@@ -113,54 +113,6 @@ export default {
       }
     },
 
-    //    getRecipes(category = this.$route.params.key, key = this.$route.query.key) {
-
-    //   this.recipes = null;
-    //   this.loading = true;
-    //   if (category) {
-    //     axios.get(APImakanan + "/recipes/index.php", {
-    //       params: {
-    //         category: category
-    //       }
-    //     })
-    //       .then(response => {
-    //         this.loading = false; 
-    //         this.recipes = response.data.results;
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-    //   } else {
-    //     if (key) {
-    //       axios.get(APImakanan + '/recipes/index.php', {
-    //         params: {
-    //           search: key
-    //         }
-    //       })
-    //         .then(response => {
-    //           this.loading = false;
-    //           this.recipes = response.data.results;
-    //         })
-    //         .catch(error => {
-    //           console.log(error)
-    //         })
-    //     } else {
-    //       axios.get(APImakanan + "/recipes/index.php", {
-    //         params : {
-    //           page : this.page
-    //         }
-
-    //       })
-    //         .then(response => {
-    //           this.loading = false;
-    //           this.recipes = response.data.results;
-    //         })
-    //         .catch(error => {
-    //           console.log(error)
-    //         })
-    //     }
-    //   }
-    // },
 
     getsearch(search = "") {
 
@@ -181,12 +133,7 @@ export default {
         this.loading = true;
         this.page = this.page + 1;
   
-        axios.get(APImakanan + "/recipes/index.php", {
-          params : {
-            page : this.page
-          }
-  
-        })
+        axios.get(APImakanan + "/recipes/" + this.page)
           .then(response => {
             this.loading = false;
             let newRecipes = response.data.results;
