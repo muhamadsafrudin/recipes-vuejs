@@ -1,11 +1,8 @@
-// const APimakanan = "http://localhost/server-makanan/api";
-// const APimakanan = "https://klikajaslur.000webhostapp.com/server-makanan/api";
-// const APimakanan = "http://server-makanan.herokuapp.com/api";
 
-const APimakanan = "https://server-makanan.herokuapp.com";
+const APimakanan = import.meta.env.VITE_REQUEST_API;
 
 const APiKey     = {
-    "api-key" : "masak_apa"
+    "api-key" : import.meta.env.VITE_API_KEY
 }
 
 export default { APimakanan, APiKey };

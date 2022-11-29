@@ -68,8 +68,9 @@ import Footer from '../components/Footer.vue';
 import { setCookie } from "../assets/Script.js";
 
 export default {
+  data () {
+    
 
-    data () {
       return {
         recipes: null,
         loading : false
@@ -116,7 +117,5 @@ export default {
 
 
 }
-
-
 
 </script>
