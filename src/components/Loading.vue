@@ -1,10 +1,9 @@
 <template>
-  <div class="text-center pt-5">
-    <div class="spinner-grow" role="status">
+    <div v-for="(n, index) in 5" :key="index">
+      <div class="col">
+        <div class="card shadow-sm">
+          <img class="bd-placeholder-img card-img-top" v-bind:src="'/assets/icon/load.gif'" />
+        </div>
+      </div>
     </div>
-    <div class="spinner-grow mx-1" role="status">
-    </div>
-    <div class="spinner-grow" role="status">
-    </div>
-  </div>
 </template>

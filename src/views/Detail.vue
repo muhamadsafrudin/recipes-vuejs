@@ -117,10 +117,10 @@ import Footer from "../components/Footer.vue";
                   <div
                     v-for="(data, index) in recipes"
                     :key="index"
-                    class="col-6 mb-3"
+                    class="col-6 mb-2"
                   >
-                    <div @click="newDetail(data.key)" class="col">
-                      <div class="card shadow-sm">
+                    <div @click="newDetail(data.key)">
+                      <div class="card shadow-sm" style="margin:2px -5px">
                         <img
                           style="cursor: pointer"
                           class="bd-placeholder-img card-img-top"

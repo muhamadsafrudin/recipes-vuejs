@@ -23,7 +23,7 @@ import InfiniteLoading from "v3-infinite-loading";
             <router-link class="text-decoration-none" :to="'/detail/' + recipe.key">
             <div class="col">
               <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" v-bind:src="recipe.thumb" />
+                <img class="bd-placeholder-img card-img-top" v-bind:src="recipe.thumb"/>
                 <div class="card-body">
                   <h5 class="text-dark">{{ recipe.title }}</h5>
                   <!-- <div class="d-flex justify-content-between align-items-center">
@@ -34,8 +34,8 @@ import InfiniteLoading from "v3-infinite-loading";
             </div>
            </router-link>
           </div>
-        </div>
         <Loading v-if="loading == true" />  
+        </div>
         <InfiniteLoading :firstload="false" @infinite="loadData" />
       </div>
     </div>
@@ -62,7 +62,8 @@ export default {
       recipes     : [],
       loading     : true,
       desctitle   : "",
-      page        : 1
+      page        : 1,
+      serving     : false,
     }
   },
   mounted() {
@@ -103,8 +104,8 @@ export default {
         } else {
           axios.get(APImakanan + "/recipes/1")
             .then(response => {
-              this.loading = false;
               this.recipes = response.data.data;
+              this.loading = false;
             })
             .catch(error => {
               console.log(error)
@@ -145,10 +146,9 @@ export default {
             console.log(error)
           })
       }
-    }
+    },
 
-
-
+  
   }
 
 
