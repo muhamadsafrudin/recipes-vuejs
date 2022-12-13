@@ -105,7 +105,7 @@ export default {
           axios.get(APImakanan + "/recipes/1")
             .then(response => {
               this.recipes = response.data.data;
-              this.loading = false;
+              
             })
             .catch(error => {
               console.log(error)
@@ -147,6 +147,12 @@ export default {
           })
       }
     },
+
+    loadImg(e) {
+      let ready = e.isTrusted;
+      console.log(e);
+      this.loading = false;
+    }
 
   
   }

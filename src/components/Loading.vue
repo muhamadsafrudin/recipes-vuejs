@@ -1,17 +1,16 @@
 
 <template>
-    <div v-for="(n, index) in 5" :key="index">
+    <div v-for="(n, index) in 6" :key="index">
       <div class="col">
         <div class="card shadow-sm">
-          <!-- <img class="bd-placeholder-img card-img-top" v-bind:src="'/assets/icon/load.gif'" /> -->
-          <Skeleton :width="'100%'" />
+          <Skeletor :shimmer="true" height="280"/>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-
+  import "../assets/skeleton.css";
   import { Skeletor } from 'vue-skeletor';
 
   export default {
